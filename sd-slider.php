@@ -30,22 +30,24 @@
                define ('SD_SLIDER_VERSION','1.0.0') ; //define a constant variable that contains the plugin version
             }
 
-            public function activate(){
-
+            public static function activate(){
+                 
+                    update_option('rewrite_rules',''); // deleting values in the fields
             }
 
-            public function deactivate(){
-
+            public static function deactivate(){
+                   flush_rewrite_rules(); // like saving permalinks .
             }
 
-            public function uninstall(){
-
+            public static function uninstall(){
+                    // empty we dont have anything to delete here
             }
      }
  }
 
  if(class_exists ('SD_Slider')){ //checks if the class exists then moves and uses it 
-    register_activation_hook(__FILE__,array('SD_SLIDER','activate'));
+    register_activation_hook(__FILE__,array('SD_SLIDER','activate')); //
+    register_deactivation_hook(__FILE__,array('SD_SLIDER','deactivate'));
     register_uninstall_hook(__FILE__,array('SD_SLIDER','uninstall'));
 
     $mv_slider= new SD_Slider();
