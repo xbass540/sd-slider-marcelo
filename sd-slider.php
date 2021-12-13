@@ -2,7 +2,7 @@
 /**
  * Plugin Name: SD Slider
  * Plugin URI: https://wordpress.org/sd-slider
- * Description: my ddescription
+ * Description: Solomon Designs modular responsive Slider Plugin
  * Version: 1.0
  * Requires at least: 5.6
  * Author: Kostas Mavrokefalos
@@ -22,7 +22,12 @@
             function __construct()//the constructor is the first item to be executed 
             {
                 $this->define_constants(); // i call the method define_constant 
+
+                require_once( SD_SLIDER_PATH . 'post-types/class.sd-slider-cpt.php' );
+                $SD_Slider_Post_Type = new SD_Slider_Post_Type();
             }
+
+
 
             public function define_constants(){
                define ('SD_SLIDER_PATH',plugin_dir_path( __FILE__)) ; //define a constant variable that contains the plugin dir path
@@ -45,11 +50,3 @@
      }
  }
 
- if(class_exists ('SD_Slider')){ //checks if the class exists then moves and uses it 
-    register_activation_hook(__FILE__,array('SD_SLIDER','activate')); //
-    register_deactivation_hook(__FILE__,array('SD_SLIDER','deactivate'));
-    register_uninstall_hook(__FILE__,array('SD_SLIDER','uninstall'));
-
-    $mv_slider= new SD_Slider();
-
- }
