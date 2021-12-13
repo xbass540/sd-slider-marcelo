@@ -50,3 +50,10 @@
      }
  }
 
+ if( class_exists( 'SD_Slider' ) ){
+    register_activation_hook( __FILE__, array( 'SD_Slider', 'activate' ) );
+    register_deactivation_hook( __FILE__, array( 'SD_Slider', 'deactivate' ) );
+    register_uninstall_hook( __FILE__, array( 'SD_Slider', 'uninstall' ) );
+
+    $sd_slider = new SD_Slider();
+} 
