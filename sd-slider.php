@@ -23,7 +23,8 @@
             {
                 $this->define_constants(); // i call the method define_constant 
 
-                require_once( SD_SLIDER_PATH . 'post-types/class.sd-slider-cpt.php' );
+                require_once( SD_SLIDER_PATH . 'assets/post-types/class.sd-slider-cpt.php' );
+                
                 $SD_Slider_Post_Type = new SD_Slider_Post_Type();
             }
 
