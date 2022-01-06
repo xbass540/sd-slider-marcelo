@@ -23,7 +23,7 @@
             {
                 $this->define_constants(); // i call the method define_constant 
 
-                require_once( SD_SLIDER_PATH . 'assets/post-types/class.sd-slider-cpt.php' );
+                require_once( SD_SLIDER_PATH . 'assets/post-types/class.sd-slider-cpt.php' );// intatiate the class = bring it to life
                 
                 $SD_Slider_Post_Type = new SD_Slider_Post_Type();
             }
@@ -43,6 +43,7 @@
 
             public static function deactivate(){
                    flush_rewrite_rules(); // like saving permalinks .
+                   unregister_post_type('sd-slider');
             }
 
             public static function uninstall(){
