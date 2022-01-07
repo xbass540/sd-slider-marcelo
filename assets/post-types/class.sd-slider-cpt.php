@@ -5,6 +5,7 @@ if(!class_exists('SD_Slider_Post_Type')){// we get the option to overwrite the c
             function __construct()
             {
                 add_action('init', array($this, 'create_post_type') );
+                add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
             }
 
             public function create_post_type(){//this is the callback function of the hook function= method 
@@ -32,9 +33,24 @@ if(!class_exists('SD_Slider_Post_Type')){// we get the option to overwrite the c
                         'publicly_queryable'    => true,
                         'show_in_rest'  => true,
                         'menu_icon' => 'dashicons-slides',
-                        //'register_meta_box_cb'  =>  array( $this, 'add_meta_boxes' )
+                        //'register_meta_box_cb'  =>  array( $this, 'add_meta_boxes' ) // alternative way to reate metaboxes
                     )
                 );
             }
+
+            public function add_meta_boxes(){
+                add_meta_box(
+                    'sd_slider_meta_box',//CSS ID
+                    esc_html__( 'Link Options', 'sd-slider' ),//Title
+                    array( $this, 'add_inner_meta_boxes' ),
+                    'sd-slider',
+                    'normal', //where in the edit page it is displayed normal is under the content
+                    'high'
+                );
+            }
+
+    public function add_inner_meta_boxes($post){
+        require_once( SD_SLIDER_PATH . 'views/sd-slider_metabox.php' );//calls the HTML file
+    }
     }
 }
