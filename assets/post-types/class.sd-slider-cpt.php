@@ -5,7 +5,8 @@ if(!class_exists('SD_Slider_Post_Type')){// we get the option to overwrite the c
             function __construct()
             {
                 add_action('init', array($this, 'create_post_type') );
-                add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+                add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );//adds metabox in slider page
+                add_action( 'save_post', array( $this, 'save_post' ), 10, 2 );//saves post to DB
             }
 
             public function create_post_type(){//this is the callback function of the hook function= method 
@@ -37,7 +38,7 @@ if(!class_exists('SD_Slider_Post_Type')){// we get the option to overwrite the c
                     )
                 );
             }
-
+//adds metaboxes in slider edit page
             public function add_meta_boxes(){
                 add_meta_box(
                     'sd_slider_meta_box',//CSS ID
@@ -48,9 +49,51 @@ if(!class_exists('SD_Slider_Post_Type')){// we get the option to overwrite the c
                     'high'
                 );
             }
-
+//Inserts the HTML of the metaboxes fields
     public function add_inner_meta_boxes($post){
-        require_once( SD_SLIDER_PATH . 'views/sd-slider_metabox.php' );//calls the HTML file
+        require_once( SD_SLIDER_PATH . 'assets/views/sd-slider_metabox.php' );//calls the HTML file
     }
+//Saves the data to the DB
+public function save_post( $post_id ){
+    if( isset( $_POST['sd_slider_nonce'] ) ){
+        if( ! wp_verify_nonce( $_POST['sd_slider_nonce'], 'sd_slider_nonce' ) ){
+            return;
+        }
+    }
+
+    if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ){
+        return;
+    }
+
+    if( isset( $_POST['post_type'] ) && $_POST['post_type'] === 'sd-slider' ){
+        if( ! current_user_can( 'edit_page', $post_id ) ){
+            return;
+        }elseif( ! current_user_can( 'edit_post', $post_id ) ){
+            return;
+        }
+    }
+
+    if( isset( $_POST['action'] ) && $_POST['action'] == 'editpost' ){
+        $old_link_text = get_post_meta( $post_id, 'sd_slider_link_text', true );
+        $new_link_text = $_POST['sd_slider_link_text'];
+        $old_link_url = get_post_meta( $post_id, 'sd_slider_link_url', true );
+        $new_link_url = $_POST['sd_slider_link_url'];
+
+        if( empty( $new_link_text )){
+            update_post_meta( $post_id, 'sd_slider_link_text', esc_html__( 'Add some text', 'sd-slider' ) );
+        }else{
+            update_post_meta( $post_id, 'sd_slider_link_text', sanitize_text_field( $new_link_text ), $old_link_text );
+        }
+
+        if( empty( $new_link_url )){
+            update_post_meta( $post_id, 'sd_slider_link_url', '#' );
+        }else{
+            update_post_meta( $post_id, 'sd_slider_link_url', sanitize_text_field( $new_link_url ), $old_link_url );
+        }
+        
+        
+    }
+}
+
     }
 }
