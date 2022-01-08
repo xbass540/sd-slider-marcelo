@@ -53,7 +53,7 @@ if(!class_exists('SD_Slider_Post_Type')){// we get the option to overwrite the c
     public function add_inner_meta_boxes($post){
         require_once( SD_SLIDER_PATH . 'assets/views/sd-slider_metabox.php' );//calls the HTML file
     }
-//Saves the data to the DB
+//Saves the data to the DB and sanitize
 public function save_post( $post_id ){
     if( isset( $_POST['sd_slider_nonce'] ) ){
         if( ! wp_verify_nonce( $_POST['sd_slider_nonce'], 'sd_slider_nonce' ) ){
@@ -79,21 +79,21 @@ public function save_post( $post_id ){
         $old_link_url = get_post_meta( $post_id, 'sd_slider_link_url', true );
         $new_link_url = $_POST['sd_slider_link_url'];
 
-        if( empty( $new_link_text )){
+        if( empty( $new_link_text )){ // checks if the fields are empty
             update_post_meta( $post_id, 'sd_slider_link_text', esc_html__( 'Add some text', 'sd-slider' ) );
         }else{
-            update_post_meta( $post_id, 'sd_slider_link_text', sanitize_text_field( $new_link_text ), $old_link_text );
+            update_post_meta( $post_id, 'sd_slider_link_text', sanitize_text_field( $new_link_text ), $old_link_text );//text field sanitizing
         }
 
-        if( empty( $new_link_url )){
+        if( empty( $new_link_url )){ // checks if the fields are empty
             update_post_meta( $post_id, 'sd_slider_link_url', '#' );
         }else{
-            update_post_meta( $post_id, 'sd_slider_link_url', sanitize_text_field( $new_link_url ), $old_link_url );
+            update_post_meta( $post_id, 'sd_slider_link_url', sanitize_text_field( $new_link_url ), $old_link_url ); // sanitize url
         }
         
         
     }
 }
-
+//end of initial brackets
     }
 }
