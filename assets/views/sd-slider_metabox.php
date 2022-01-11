@@ -47,7 +47,7 @@
 
 
     
-       <!-- button b link text-->
+       <!-- button B link text-->
        <tr>
         <th>
             <label for="sd_slider_link_text_b"><?php esc_html_e( 'Link Text for button B', 'sd-slider' ); ?></label>

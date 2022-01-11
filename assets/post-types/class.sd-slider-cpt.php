@@ -47,6 +47,8 @@ if(!class_exists('SD_Slider_Post_Type')){// we get the option to overwrite the c
 public function sd_slider_cpt_columns($columns){
     $columns['sd_slider_link_text'] = esc_html__( 'Link Text', 'sd-slider' );//displays Link text in the sliders table
     $columns['sd_slider_link_url'] = esc_html__( 'Link URL', 'sd-slider' );//displays Url in the sliders table
+    $columns['sd_slider_link_text_b'] = esc_html__( 'Link Text', 'sd-slider_b' );//displays Link text in the sliders table
+    $columns['sd_slider_link_url_b'] = esc_html__( 'Link URL', 'sd-slider_b' );//displays Url in the sliders table
     return $columns;
 }
 
@@ -58,7 +60,13 @@ public function sd_slider_custom_columns( $column, $post_id ){
         break;
         case 'sd_slider_link_url':
             echo esc_url( get_post_meta( $post_id, 'sd_slider_link_url', true ) );
-        break;                
+        break;   
+        case 'sd_slider_link_text_b':
+            echo esc_html( get_post_meta( $post_id, 'sd_slider_link_text_b', true ) );
+        break;
+        case 'sd_slider_link_url':
+            echo esc_url( get_post_meta( $post_id, 'sd_slider_link_url_b', true ) );
+        break;                 
     }
 }
 
@@ -153,7 +161,6 @@ public function save_post( $post_id ){
                     update_post_meta( $post_id, 'sd_slider_link_url', sanitize_text_field( $new_link_url_b ), $old_link_url_b ); // sanitize url
                 }
 
-        
     }
 }
 //end of initial brackets
