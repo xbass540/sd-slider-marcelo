@@ -133,11 +133,11 @@ public function save_post( $post_id ){
         }
 
         //the 2nd button 
-                //the 1st button link text
+                //the 2nd button link text
                 $old_link_text_b = get_post_meta( $post_id, 'sd_slider_link_text_b', true );
                 $new_link_text_b = $_POST['sd_slider_link_text_b'];
         
-                //the 1st button link url
+                //the 2nd button link url
                 $old_link_url_b = get_post_meta( $post_id, 'sd_slider_link_url_b', true );
                 $new_link_url_b = $_POST['sd_slider_link_url_b'];
         
