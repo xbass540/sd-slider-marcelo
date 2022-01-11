@@ -64,7 +64,7 @@ public function sd_slider_custom_columns( $column, $post_id ){
         case 'sd_slider_link_text_b':
             echo esc_html( get_post_meta( $post_id, 'sd_slider_link_text_b', true ) );
         break;
-        case 'sd_slider_link_url':
+        case 'sd_slider_link_url_b':
             echo esc_url( get_post_meta( $post_id, 'sd_slider_link_url_b', true ) );
         break;                 
     }
@@ -152,13 +152,13 @@ public function save_post( $post_id ){
                 if( empty( $new_link_text_b )){ // checks if the fields are empty
                     update_post_meta( $post_id, 'sd_slider_link_text_b', esc_html__( 'Add some text', 'sd-slider' ) );
                 }else{
-                    update_post_meta( $post_id, 'sd_slider_link_text', sanitize_text_field( $new_link_text_b ), $old_link_text_b );//text field sanitizing
+                    update_post_meta( $post_id, 'sd_slider_link_text_b', sanitize_text_field( $new_link_text_b ), $old_link_text_b );//text field sanitizing
                 }
         
                 if( empty( $new_link_url_b )){ // checks if the fields are empty
-                    update_post_meta( $post_id, 'sd_slider_link_url', '#' );
+                    update_post_meta( $post_id, 'sd_slider_link_url_b', '#' );
                 }else{
-                    update_post_meta( $post_id, 'sd_slider_link_url', sanitize_text_field( $new_link_url_b ), $old_link_url_b ); // sanitize url
+                    update_post_meta( $post_id, 'sd_slider_link_url_b', sanitize_text_field( $new_link_url_b ), $old_link_url_b ); // sanitize url
                 }
 
     }

@@ -50,14 +50,14 @@
        <!-- button B link text-->
        <tr>
         <th>
-            <label for="sd_slider_link_text_b"><?php esc_html_e( 'Link Text for button B', 'sd-slider' ); ?></label>
+            <label for="sd_slider_link_text_b"><?php esc_html_e( 'Link Text for button B', 'sd-slider_b' ); ?></label>
         </th>
         <td> <!-- escaping the value of the inputed field  -->
             <input 
                 type="text" 
                 name="sd_slider_link_text_b" 
                 id="sd_slider_link_text_b" 
-                class="regular-text link-text"
+                class="regular-text link-text_b"
                 value="<?php echo ( isset( $link_text_b ) ) ? esc_html( $link_text_b ) : ''; ?>"
                 required
             >
@@ -68,14 +68,14 @@
         <!-- button B link url -->
         <tr>
         <th> <!-- escaping the value of the inputed field  -->
-            <label for="sd_slider_link_url"><?php esc_html_e( 'Link URL for button B', 'sd-slider' ); ?></label>
+            <label for="sd_slider_link_url_b"><?php esc_html_e( 'Link URL for button B', 'sd-slider_b' ); ?></label>
         </th>
         <td> <!-- escaping the value of the inputed field  -->
             <input 
                 type="url" 
                 name="sd_slider_link_url_b" 
                 id="sd_slider_link_url_b" 
-                class="regular-text link-url"
+                class="regular-text link-url_b"
                 value="<?php echo ( isset( $link_url_b ) ) ? esc_url( $link_url_b ) : ''; ?>"
                 required
             >
