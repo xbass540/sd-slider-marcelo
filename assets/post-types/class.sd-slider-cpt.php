@@ -132,6 +132,27 @@ public function save_post( $post_id ){
             update_post_meta( $post_id, 'sd_slider_link_url', sanitize_text_field( $new_link_url ), $old_link_url ); // sanitize url
         }
 
+        //the 2nd button 
+                //the 1st button link text
+                $old_link_text_b = get_post_meta( $post_id, 'sd_slider_link_text_b', true );
+                $new_link_text_b = $_POST['sd_slider_link_text_b'];
+        
+                //the 1st button link url
+                $old_link_url_b = get_post_meta( $post_id, 'sd_slider_link_url_b', true );
+                $new_link_url_b = $_POST['sd_slider_link_url_b'];
+        
+                if( empty( $new_link_text_b )){ // checks if the fields are empty
+                    update_post_meta( $post_id, 'sd_slider_link_text_b', esc_html__( 'Add some text', 'sd-slider' ) );
+                }else{
+                    update_post_meta( $post_id, 'sd_slider_link_text', sanitize_text_field( $new_link_text_b ), $old_link_text_b );//text field sanitizing
+                }
+        
+                if( empty( $new_link_url_b )){ // checks if the fields are empty
+                    update_post_meta( $post_id, 'sd_slider_link_url', '#' );
+                }else{
+                    update_post_meta( $post_id, 'sd_slider_link_url', sanitize_text_field( $new_link_url_b ), $old_link_url_b ); // sanitize url
+                }
+
         
     }
 }
