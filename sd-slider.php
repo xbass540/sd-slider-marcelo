@@ -25,6 +25,8 @@
 
                 require_once( SD_SLIDER_PATH . 'assets/post-types/class.sd-slider-cpt.php' );// intatiate the slider class = bring it to life
                 
+                add_action( 'admin_menu', array( $this, 'add_menu' ) );//creates a higher level menu in admin area
+
                 $SD_Slider_Post_Type = new SD_Slider_Post_Type();
             }
 
@@ -49,8 +51,45 @@
             public static function uninstall(){
                     // empty we dont have anything to delete here
             }
+
+            //add top level menu callback function
+   public function add_menu(){
+    add_menu_page(
+        esc_html__( 'SD Slider Options', 'sd-slider' ),
+        'SD Slider',
+        'manage_options',
+        'sd_slider_admin',
+        array( $this, 'sd_slider_settings_page' ),
+        'dashicons-images-alt2'
+    );
+
+    //add submenu
+
+    add_submenu_page(
+        'sd_slider_admin',/// i copy and paste this from the WP backend and this changes where the submenu appears
+        esc_html__( 'Manage Slides', 'sd-slider' ),
+        esc_html__( 'Manage Slides', 'sd-slider' ),
+        'manage_options',
+        'edit.php?post_type=sd-slider',
+        null,
+        null
+    );
+
+    add_submenu_page(
+        'sd_slider_admin', /// i copy and paste this from the WP backend and this changes where the submenu appears
+        esc_html__( 'Add New Slide', 'sd-slider' ),
+        esc_html__( 'Add New Slide', 'sd-slider' ),
+        'manage_options',
+        'post-new.php?post_type=sd-slider',
+        null,
+        null
+    );
+
+}
      }
  }
+
+ 
 
  if( class_exists( 'SD_Slider' ) ){
     register_activation_hook( __FILE__, array( 'SD_Slider', 'activate' ) );
