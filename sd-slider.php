@@ -86,6 +86,10 @@
     );
 
 }
+//menu pages end
+public function sd_slider_settings_page(){
+            require(SD_SLIDER_PATH . 'views/settings-page.php');
+        }
      }
  }
 
