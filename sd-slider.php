@@ -28,6 +28,9 @@
                 add_action( 'admin_menu', array( $this, 'add_menu' ) );//creates a higher level menu in admin area
 
                 $SD_Slider_Post_Type = new SD_Slider_Post_Type();
+
+            require_once(SD_SLIDER_PATH . 'class.sd-slider-settings.php'); //require the file,  intatiate the slider settings page class = bring it to life
+            $SD_Slider_Settings = new SD_Slider_Settings(); //create the new object
             }
 
 
@@ -88,7 +91,7 @@
 }
 //menu pages end
 public function sd_slider_settings_page(){
-            require(SD_SLIDER_PATH . 'views/settings-page.php');
+            require(SD_SLIDER_PATH . 'assets/views/settings-page.php');
         }
      }
  }
