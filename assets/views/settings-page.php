@@ -7,6 +7,7 @@
       
             settings_fields('sd_slider_group');
             do_settings_sections('sd_slider_page1');
-        submit_button(esc_html__('Save Settings', 'sd-slider'));
+            do_settings_sections('sd_slider_page2');//creates the 2nd page
+            submit_button(esc_html__('Save Settings', 'sd-slider'));
         ?>
     </form
