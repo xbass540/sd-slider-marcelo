@@ -91,6 +91,16 @@
 }
 //menu pages end
 public function sd_slider_settings_page(){
+
+            if (!current_user_can('manage_options')) {
+                return;
+            }
+
+            if (isset($_GET['settings-updated'])) {
+                add_settings_error('mv_slider_options', 'mv_slider_message', esc_html__('Settings Saved', 'mv-slider'), 'success');
+            }
+
+            settings_errors('mv_slider_options');//i call the function that displays the settings error
             require(SD_SLIDER_PATH . 'assets/views/settings-page.php');
         }
      }
