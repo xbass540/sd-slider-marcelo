@@ -48,7 +48,10 @@ if (!class_exists('SD_Slider_Settings')) {
                 esc_html__('Slider Title', 'sd-slider'),
                 array($this, 'sd_slider_title_callback'),
                 'sd_slider_page2',
-                'sd_slider_second_section'
+                'sd_slider_second_section',
+                array(
+                    'label_for' => 'sd_slider_title' // the id of the field)
+                )
             );
 
             //add 3rd field checkbox
@@ -57,8 +60,12 @@ if (!class_exists('SD_Slider_Settings')) {
                 esc_html__('Display Bullets', 'sd-slider'),
                 array($this, 'sd_slider_bullets_callback'),
                 'sd_slider_page2',
-                'sd_slider_second_section'
-            );
+                'sd_slider_second_section',
+                array(
+                    'label_for' => 'sd_slider_bullets'// the id of the field)
+                )
+                );
+
             //add 4th field styles dropdown
             add_settings_field(
                 'sd_slider_style',
@@ -66,12 +73,12 @@ if (!class_exists('SD_Slider_Settings')) {
                 array($this, 'sd_slider_style_callback'),
                 'sd_slider_page2',
                 'sd_slider_second_section',
-                array(
+                array( //6th parameter passes arguments to callback function    
                     'items' => array(
                         'style-1',
                         'style-2'
                     ),
-                    'label_for' => 'sd_slider_style'
+                    'label_for' => 'sd_slider_style'// the id of the field
                 )
 
             );
@@ -102,10 +109,10 @@ if (!class_exists('SD_Slider_Settings')) {
         {
         ?>
             <input type="checkbox" name="sd_slider_options[sd_slider_bullets]" id="sd_slider_bullets" value="1" <?php
-                                                                                                                if (isset(self::$options['sd_slider_bullets'])) {
-                                                                                                                    checked("1", self::$options['sd_slider_bullets'], true); //checks if the box is checked
-                                                                                                                }
-                                                                                                                ?> />
+          if (isset(self::$options['sd_slider_bullets'])) {
+ checked("1", self::$options['sd_slider_bullets'], true); //checks if the box is checked
+  }
+ ?> />
             <label for="sd_slider_bullets"><?php esc_html_e('Whether to display bullets or not', 'sd-slider'); ?></label>
 
         <?php
@@ -129,6 +136,27 @@ if (!class_exists('SD_Slider_Settings')) {
                 <?php endforeach; ?>
             </select>
 <?php
+        }
+
+        ///validate function for the input fields in the settings page
+        public function sd_slider_validate($input)
+        {
+            $new_input = array();
+            foreach ($input as $key => $value) {
+                switch ($key) {
+                    case 'sd_slider_title':
+                        if (empty($value)) {
+                            add_settings_error('sd_slider_options', 'sd_slider_message', esc_html__('The title field can not be left empty', 'sd-slider'), 'error');
+                            $value = esc_html__('Please, type some text', 'sd-slider');
+                        }
+                        $new_input[$key] = sanitize_text_field($value);
+                        break;
+                    default:
+                        $new_input[$key] = sanitize_text_field($value);
+                        break;
+                }
+            }
+            return $new_input;
         }
 
         ////////closing 
